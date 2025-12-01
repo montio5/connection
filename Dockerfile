@@ -18,4 +18,4 @@ COPY health.py /health.py
 EXPOSE 10000 3000
 
 # Run health.py in background, then V2Ray
-CMD ["sh", "-c", "python3 /health.py & /usr/local/bin/v2ray -config /etc/v2ray/config.json"]
+CMD ["sh", "-c", "python3 /health.py & v2ray run -config /etc/v2ray/config.json"]
