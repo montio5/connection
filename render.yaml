@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: vless-proxy
+    env: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    ports:
+      - port: 3000   # health endpoint
+        protocol: tcp
+      - port: 10000  # vless port
+        protocol: tcp
+    autoDeploy: true

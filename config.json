@@ -1,0 +1,25 @@
+{
+    "inbounds": [
+      {
+        "port": 10000,
+        "protocol": "vless",
+        "settings": {
+          "clients": [
+            {
+              "id": "REPLACE_WITH_YOUR_UUID"
+            }
+          ],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "tcp"
+        }
+      }
+    ],
+    "outbounds": [
+      {
+        "protocol": "freedom"
+      }
+    ]
+  }
+  
