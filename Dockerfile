@@ -7,5 +7,7 @@ COPY health.py .
 FROM v2fly/v2fly-core
 COPY config.json /etc/v2ray/config.json
 COPY --from=health /app/health.py /health.py
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
-CMD ["sh", "-c", "python /health.py & v2ray -config=/etc/v2ray/config.json"]
+CMD ["/run.sh"]
