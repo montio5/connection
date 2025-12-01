@@ -1,13 +1,17 @@
-# Stage 1: health endpoint
-FROM python:3.11-slim as health
-WORKDIR /app
-COPY health.py .
-
-# Stage 2: main V2Ray
+# Use official V2Fly image
 FROM v2fly/v2fly-core
-COPY config.json /etc/v2ray/config.json
-COPY --from=health /app/health.py /health.py
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
 
-CMD ["/run.sh"]
+# Copy VLESS config
+COPY config.json /etc/v2ray/config.json
+
+# Copy health server
+COPY health.py /health.py
+
+# Install Python 3 for health.py
+RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+
+# Expose ports
+EXPOSE 10000 3000
+
+# Start health.py in background, then start V2Ray
+CMD ["sh", "-c", "python3 /health.py & /usr/bin/v2ray -config /etc/v2ray/config.json"]
